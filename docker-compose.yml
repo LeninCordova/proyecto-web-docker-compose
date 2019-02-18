@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  miservicio_mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345
+    container_name: db_sql
+    volumes:
+      - /home/prueba_cuatro/base/b_my:/var/lib/mysql:Z
+
+  miservicio_php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: php_web
+    volumes:
+      - /home/prueba_cuatro/proyecto:/var/www/html:Z
+    links:
+      - miservicio_mysql
